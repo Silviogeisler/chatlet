@@ -222,7 +222,7 @@ longPoll = function(data) {
   return jQuery.ajax({
     cache: false,
     type: "GET",
-    url: "/recv",
+    url: "http://chatlet.heroku.com/recv",
     dataType: "json",
     data: {
       since: CONFIG.last_message_time,
@@ -250,7 +250,7 @@ send = function(msg) {
   if (CONFIG.debug === false) {
     // XXX should be POST
     // XXX should add to messages immediately
-    return jQuery.get("/send", {
+    return jQuery.get("http://chatlet.heroku.com/send", {
       id: CONFIG.id,
       text: msg
     }, function(data) {
@@ -331,7 +331,7 @@ outputUsers = function() {
 };
 //get a list of the users presently in the room, and add it to the stream
 who = function() {
-  return jQuery.get("/who", {}, function(data, status) {
+  return jQuery.get("http://chatlet.heroku.com/who", {}, function(data, status) {
     if (status !== "success") {
       return null;
     }
@@ -376,7 +376,7 @@ jQuery(document).ready(function() {
       type: "GET",
       // XXX should be POST
       dataType: "json",
-      url: "/join",
+      url: "http://chatlet.heroku.com/join",
       data: {
         nick: nick
       },
@@ -408,7 +408,7 @@ jQuery(document).ready(function() {
 });
 //if we can, notify the server that we're going away.
 jQuery(window).unload(function() {
-  return jQuery.get("/part", {
+  return jQuery.get("http://chatlet.heroku.com/part", {
     id: CONFIG.id
   }, function(data) {
     return null;
