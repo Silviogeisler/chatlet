@@ -298,6 +298,7 @@ starttime = null;
 rss = null;
 //handle the server's response to our nickname and join request
 onConnect = function(session) {
+	console.log(session);
   if (session.error) {
     alert("error connecting: " + session.error);
     showConnect();
