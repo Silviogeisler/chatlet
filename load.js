@@ -39,9 +39,9 @@ function wait_for_script_load(look_for, callback) {
 }
 
 (function(){
-  importCSS('/chatlet.css');
-  importJS('/jquery-1.4.2.min.js', 'jQuery', function() { // Load everything else when it is done.
+  importCSS('http://chatlet.heroku.com/chatlet.css');
+  importJS('http://chatlet.heroku.com/jquery-1.4.2.min.js', 'jQuery', function() { // Load everything else when it is done.
     jQuery.noConflict();
-        importJS('/client.js');
+        importJS('http://chatlet.heroku.com/client.js');
   });
 })();
