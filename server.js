@@ -120,8 +120,9 @@ kill_sessions = function() {
 setInterval(kill_sessions, 1000);
 fu.listen(PORT, HOST);
 fu.get("/", fu.staticHandler("index.html"));
-fu.get("/style.css", fu.staticHandler("style.css"));
+fu.get("/chatlet.css", fu.staticHandler("chatlet.css"));
 fu.get("/client.js", fu.staticHandler("client.js"));
+fu.get("/load.js", fu.staticHandler("load.js"));
 fu.get("/jquery-1.4.2.min.js", fu.staticHandler("jquery-1.4.2.min.js"));
 fu.get('/who', function(req, res) {
   var _a, _b, _c, nicks, session;

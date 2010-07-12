@@ -24,6 +24,7 @@ fu.get = function(path, handler) {
   return getMap[path];
 };
 server = createServer(function(req, res) {
+	sys.puts(req.method+" "+req.url);
   var handler;
   if (req.method === "GET" || req.method === "HEAD") {
     handler = getMap[url.parse(req.url).pathname] || notFound;

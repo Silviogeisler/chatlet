@@ -66,7 +66,7 @@ updateUsersLink = function() {
   if (nicks.length !== 1) {
     t += "s";
   }
-  return $("#usersLink").text(t);
+  return jQuery("#usersLink").text(t);
 };
 //handles another person joining chat
 userJoin = function(nick, timestamp) {
@@ -117,8 +117,9 @@ Util.prototype.isBlank = function(text) {
 util = new Util();
 //used to keep the most recent messages visible
 scrollDown = function() {
-  window.scrollBy(0, 100000000000000000);
-  return $("#entry").focus();
+  // window.scrollBy(0, 100000000000000000);
+	document.getElementById("log").scrollTop = document.getElementById("log").scrollHeight;
+  return jQuery("#entry").focus();
 };
 //inserts an event into the stream for display
 //the event may be a msg, join or part type
@@ -140,7 +141,7 @@ addMessage = function(from, text, time, _class) {
   //  the time,
   //  the person who caused the event,
   //  and the content
-  messageElement = $(document.createElement("table"));
+  messageElement = jQuery(document.createElement("table"));
   messageElement.addClass("message");
   if (_class) {
     messageElement.addClass(_class);
@@ -157,7 +158,7 @@ addMessage = function(from, text, time, _class) {
   content = ("<tr>\n  <td class=\"date\">" + (util.timeString(time)) + "</td>\n  <td class=\"nick\">" + (util.toStaticHTML(from)) + "</td>\n  <td class=\"msg-text\">" + text + "</td>\n</tr>");
   messageElement.html(content);
   //the log is the stream that we view
-  $("#log").append(messageElement);
+  jQuery("#log").append(messageElement);
   //always view the most recent message when it is added
   return scrollDown();
 };
@@ -167,12 +168,12 @@ updateRSS = function() {
   if (bytes) {
     megabytes = bytes / (1024 * 1024);
     megabytes = Math.round(megabytes * 10) / 10;
-    return $("#rss").text(megabytes.toString());
+    return jQuery("#rss").text(megabytes.toString());
   }
 };
 updateUptime = function() {
   if (starttime) {
-    return $("#uptime").text(starttime.toRelativeTime());
+    return jQuery("#uptime").text(starttime.toRelativeTime());
   }
 };
 transmission_errors = 0;
@@ -218,7 +219,7 @@ longPoll = function(data) {
     }
   }
   //make another request
-  return $.ajax({
+  return jQuery.ajax({
     cache: false,
     type: "GET",
     url: "/recv",
@@ -259,23 +260,26 @@ send = function(msg) {
 };
 //Transition the page to the state that prompts the user for a nickname
 showConnect = function() {
-  $("#connect").show();
-  $("#loading").hide();
-  $("#toolbar").hide();
-  return $("#nickInput").focus();
+  jQuery("#connect").show();
+  jQuery("#loading").hide();
+  jQuery("#log").hide();
+  jQuery("#toolbar").hide();
+  return jQuery("#nickInput").focus();
 };
 //transition the page to the loading screen
 showLoad = function() {
-  $("#connect").hide();
-  $("#loading").show();
-  return $("#toolbar").hide();
+  jQuery("#connect").hide();
+  jQuery("#loading").show();
+  jQuery("#log").hide();
+  return jQuery("#toolbar").hide();
 };
 //transition the page to the main chat view, putting the cursor in the textfield
 showChat = function(nick) {
-  $("#toolbar").show();
-  $("#entry").focus();
-  $("#connect").hide();
-  $("#loading").hide();
+  jQuery("#toolbar").show();
+  jQuery("#entry").focus();
+  jQuery("#log").show();
+  jQuery("#connect").hide();
+  jQuery("#loading").hide();
   return scrollDown();
 };
 //we want to show a count of unread messages when the window does not have focus
@@ -308,11 +312,11 @@ onConnect = function(session) {
   //update the UI to show the chat
   showChat(CONFIG.nick);
   //listen for browser events so we know to update the document title
-  $(window).bind("blur", function() {
+  jQuery(window).bind("blur", function() {
     CONFIG.focus = false;
     return updateTitle();
   });
-  return $(window).bind("focus", function() {
+  return jQuery(window).bind("focus", function() {
     CONFIG.focus = true;
     CONFIG.unread = 0;
     return updateTitle();
@@ -335,24 +339,25 @@ who = function() {
     return outputUsers();
   }, "json");
 };
-$(document).ready(function() {
+jQuery(document).ready(function() {
+	jQuery("#chat_gadget_html").html('<div id="chat_gadget_body"><div id="connect"><form action="#"><label for="nick">Name</label><input id="nickInput" class="text"type="text" name="nick" value=""/><input id="connectButton" class="button" type="submit" name="" value="Join"/></form></div><div id="loading"><p>loading</p></div><div id="log"></div><div id="toolbar"><input tabindex="1" type="text" id="entry"/></div>');
   //submit new messages when the user hits enter if the message isnt blank
-  $("#entry").keypress(function(e) {
+  jQuery("#entry").keypress(function(e) {
     var msg;
     if (e.keyCode !== 13) {
       return null;
     }
-    msg = $("#entry").attr("value").replace("\n", "");
+    msg = jQuery("#entry").attr("value").replace("\n", "");
     !util.isBlank(msg) ? send(msg) : null;
-    return $("#entry").attr("value", "");
+    return jQuery("#entry").attr("value", "");
   });
-  $("#usersLink").click(outputUsers);
+  jQuery("#usersLink").click(outputUsers);
   //try joining the chat when the user clicks the connect button
-  $("#connectButton").click(function() {
+  jQuery("#connectButton").click(function() {
     var nick;
     //lock the UI while waiting for a response
     showLoad();
-    nick = $("#nickInput").attr("value");
+    nick = jQuery("#nickInput").attr("value");
     //dont bother the backend if we fail easy validations
     if (nick.length > 50) {
       alert("Nick too long. 50 character max.");
@@ -366,7 +371,7 @@ $(document).ready(function() {
       return false;
     }
     //make the actual join request to the server
-    $.ajax({
+    jQuery.ajax({
       cache: false,
       type: "GET",
       // XXX should be POST
@@ -388,13 +393,13 @@ $(document).ready(function() {
     return updateUptime();
   }, 10 * 1000);
   if (CONFIG.debug) {
-    $("#loading").hide();
-    $("#connect").hide();
+    jQuery("#loading").hide();
+    jQuery("#connect").hide();
     scrollDown();
     return null;
   }
   // remove fixtures
-  $("#log table").remove();
+  jQuery("#log table").remove();
   //begin listening for updates right away
   //interestingly, we don't need to join a room to get its updates
   //we just don't show the chat stream to the user until we create a session
@@ -402,7 +407,7 @@ $(document).ready(function() {
   return showConnect();
 });
 //if we can, notify the server that we're going away.
-$(window).unload(function() {
+jQuery(window).unload(function() {
   return jQuery.get("/part", {
     id: CONFIG.id
   }, function(data) {

@@ -1,0 +1,31 @@
+#chat_gadget_body {
+	max-height: 25%;
+}
+#chat_gadget_body {
+	padding: .5em;
+	border: 1px solid rgba(255,255,255,.5);
+	-webkit-border-radius: 1em;
+}
+#chat_gadget_html,
+#chat_gadget_body {
+	background: #EDE9DC;
+}
+#entry {
+  width: 100%;
+  font-size: inherit;
+  padding: .5em;
+  margin: .5em;
+  margin: 0;
+	background: rgba(0,0,0,.05);
+	border: 1px solid rgba(0,0,0,.1);
+	-webkit-border-radius: 1em;
+  outline-width: 0;
+  clear: both;
+}
+#log {
+	max-height: 250px;
+  display: block;
+  /* enough padding to clear the toolbar.. is there a better way to do this? */
+  background: inherit;
+  overflow: auto;
+}
