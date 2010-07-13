@@ -97,7 +97,7 @@ autodetectUser = function() {
 		  nick = $("#user-bar li:nth-child(3) a").text();
     }
 	} else if (_a === "github.com") {
-	  nick = $(".name").text();
+	  nick = $(".name").first().text();
 	}
 	if (nick) {
 	  jQuery("#nickInput").attr("value", nick);
