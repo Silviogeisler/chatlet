@@ -250,7 +250,8 @@ longPoll = function(data) {
 	    }
 	  });
 	}	else {
-		return setTimeout(longPoll, 10 * 1000);
+		console.log("not logged in");
+		return setTimeout(longPoll, 1000);
 	}
 };
 //submit a new message to the server
