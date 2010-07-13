@@ -239,6 +239,8 @@ fu.get("/recv", function(req, res) {
   });
 });
 fu.get("/chans", function(req, res) {
+	var keys, callback;
+	callback = qs.parse(url.parse(req.url).query).callback;
   keys = (function() {
 	  _a = []; _b = channels;
 	  for (key in _b) { if (__hasProp.call(_b, key)) {
