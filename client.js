@@ -1,4 +1,4 @@
-var CONFIG, Util, addMessage, first_poll, longPoll, nicks, onConnect, outputUsers, rss, scrollDown, send, showChat, showConnect, showLoad, starttime, transmission_errors, updateRSS, updateTitle, updateUptime, updateUsersLink, userJoin, userPart, util, who, TITLE;
+var CONFIG, Util, addMessage, first_poll, longPoll, nicks, onConnect, outputUsers, rss, scrollDown, send, showChat, showConnect, showLoad, starttime, transmission_errors, updateRSS, updateTitle, updateUptime, updateUsersLink, userJoin, userPart, util, who, TITLE, TMP;
 var __hasProp = Object.prototype.hasOwnProperty;
 CONFIG = {
   debug: false,
@@ -12,6 +12,7 @@ CONFIG = {
   unread: 0
   //updated in the message-processing loop
 };
+TMP = {};
 nicks = [];
 Date.prototype.toRelativeTime = function(now_threshold) {
   var _a, conversions, delta, key, units, value;
@@ -195,7 +196,7 @@ longPoll = function(data) {
   }
   //process any updates we may have
   //data will be null on the first call of longPoll
-  if (data && data.messages) {
+  if (data && data.messages && data.messages.length > 0) {
     _b = data.messages;
     for (_a = 0, _c = _b.length; _a < _c; _a++) {
       message = _b[_a];
