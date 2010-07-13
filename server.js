@@ -125,7 +125,8 @@ fu.get("/client.js", fu.staticHandler("client.js"));
 fu.get("/load.js", fu.staticHandler("load.js"));
 fu.get("/jquery-1.4.2.min.js", fu.staticHandler("jquery-1.4.2.min.js"));
 fu.get('/who', function(req, res) {
-  var _a, _b, _c, nicks, session;
+  var _a, _b, _c, nicks, session, callback;
+	callback = qs.parse(url.parse(req.url).query).callback;
   nicks = [];
   _b = sessions;
   for (_a = 0, _c = _b.length; _a < _c; _a++) {
@@ -135,7 +136,7 @@ fu.get('/who', function(req, res) {
     }
     nicks.push(session.nick);
   }
-  return res.simpleJSON(200, {
+  return res.simpleJSONP(200, {
     nicks: nicks,
     rss: mem.rss
   });
@@ -190,9 +191,9 @@ fu.get("/part", function(req, res) {
     session = sessions[id];
     session.destroy();
   }
-  return res.simpleJSON(200, {
+  return res.simpleJSONP(200, {
     rss: mem.rss
-  });
+  },callback);
 });
 fu.get("/recv", function(req, res) {
   var id, session, since, callback;

@@ -337,7 +337,7 @@ who = function() {
     }
     nicks = data.nicks;
     return outputUsers();
-  }, "json");
+  }, "jsonp");
 };
 jQuery(document).ready(function() {
 	jQuery("#chat_gadget_html").html('<div id="chat_gadget_body"><div id="connect"><form action="#"><label for="nick">Name</label><input id="nickInput" class="text"type="text" name="nick" value=""/><input id="connectButton" class="button" type="submit" name="" value="Join"/></form></div><div id="loading"><p>loading</p></div><div id="log"></div><div id="toolbar"><input tabindex="1" type="text" id="entry"/></div>');
@@ -412,5 +412,5 @@ jQuery(window).unload(function() {
     id: CONFIG.id
   }, function(data) {
     return null;
-  }, "json");
+  }, "jsonp");
 });
