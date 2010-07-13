@@ -1,4 +1,4 @@
-var Channel, HOST, MESSAGE_BACKLOG, PORT, SESSION_TIMEOUT, channel, createSession, fu, kill_sessions, mem, qs, sessions, starttime, sys, url;
+var Channel, HOST, MESSAGE_BACKLOG, PORT, SESSION_TIMEOUT, channels, createSession, fu, kill_sessions, mem, qs, sessions, starttime, sys, url;
 var __slice = Array.prototype.slice, __bind = function(func, obj, args) {
     return function() {
       return func.apply(obj || {}, args ? args.concat(__slice.call(arguments, 0)) : arguments);
@@ -78,8 +78,11 @@ Channel.prototype.query = function(since, callback) {
     }, this), 3000);
 };
 
-channel = new Channel();
-createSession = function(nick) {
+channels = [];
+createSession = function(nick,host) {
+	if(!channels[host]) {
+		channels[host] = new Channel();
+	}
   var _a, _b, _c, session;
   if (nick.length > 50) {
     return null;
@@ -103,7 +106,7 @@ createSession = function(nick) {
       return session.timestamp;
     },
     destroy: function() {
-      channel.appendMessage(session.nick, "part");
+      channels[host].appendMessage(session.nick, "part");
       return delete sessions[session.id];
     }
   };
@@ -151,20 +154,21 @@ fu.get('/join', function(req, res) {
   var nick, session, callback;
   nick = qs.parse(url.parse(req.url).query).nick;
   callback = qs.parse(url.parse(req.url).query).callback;
+	host = qs.parse(url.parse(req.url).query).host;
   if (nick.length === 0) {
     res.simpleJSONP(400, {
       error: "Bad nick."
     },callback);
     return null;
   }
-  session = createSession(nick);
+  session = createSession(nick,host);
   if (session === null) {
     res.simpleJSONP(400, {
       error: "Nick in use."
     },callback);
     return null;
   }
-  channel.appendMessage(session.nick, "join");
+  channels[host]s[host].appendMessage(session.nick, "join");
   return res.simpleJSONP(200, {
     id: session.id,
     nick: session.nick,
@@ -177,6 +181,7 @@ fu.get("/send", function(req, res) {
 	callback = qs.parse(url.parse(req.url).query).callback;
   id = qs.parse(url.parse(req.url).query).id;
   text = qs.parse(url.parse(req.url).query).text;
+	host = qs.parse(url.parse(req.url).query).host;
   session = sessions[id];
   if (!session || !text) {
     res.simpleJSONP(400, {
@@ -185,7 +190,7 @@ fu.get("/send", function(req, res) {
     return null;
   }
   session.poke();
-  channel.appendMessage(session.nick, "msg", text);
+  channels[host].appendMessage(session.nick, "msg", text);
   return res.simpleJSONP(200, {
     rss: mem.rss
   },callback);
@@ -206,6 +211,7 @@ fu.get("/recv", function(req, res) {
 	callback = qs.parse(url.parse(req.url).query).callback;
   id = qs.parse(url.parse(req.url).query).id;
 	since = parseInt(qs.parse(url.parse(req.url).query).since, 10);
+	host = qs.parse(url.parse(req.url).query).host;
 	sys.puts("/recv 1");
   if (id && sessions[id]) {
     session = sessions[id];
@@ -219,7 +225,7 @@ fu.get("/recv", function(req, res) {
     return null;
   }
 	sys.puts("/recv 3");
-  return channel.query(since, function(messages) {
+  return channels[host].query(since, function(messages) {
 		sys.puts("/recv 4");
     session ? session.poke() : null;
 		sys.puts("/recv 5");
