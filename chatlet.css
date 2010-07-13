@@ -9,6 +9,8 @@
 	padding: .5em;
 	border: 1px solid rgba(255,255,255,.5);
 	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
+	border-radius: 1em;
 	background: #EDE9DC;
 }
 #entry {
@@ -20,6 +22,8 @@
 	background: rgba(0,0,0,.05);
 	border: 1px solid rgba(0,0,0,.1);
 	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
+	border-radius: 1em;
   outline-width: 0;
   clear: both;
 }

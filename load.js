@@ -40,7 +40,7 @@ function wait_for_script_load(look_for, callback) {
 
 (function(){
   importCSS('http://chatlet.heroku.com/chatlet.css');
-  importJS('http://chatlet.heroku.com/jquery-1.4.2.min.js', 'jQuery', function() { // Load everything else when it is done.
+  importJS('http://code.jquery.com/jquery-latest.min.js', 'jQuery', function() { // Load everything else when it is done.
     jQuery.noConflict();
         importJS('http://chatlet.heroku.com/client.js');
   });

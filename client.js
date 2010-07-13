@@ -220,34 +220,36 @@ longPoll = function(data) {
     }
   }
   //make another request
-  return jQuery.ajax({
-    cache: false,
-    type: "GET",
-    url: "http://chatlet.heroku.com/recv",
-    dataType: "jsonp",
-    data: {
-      since: CONFIG.last_message_time,
-      id: CONFIG.id,
-			host: document.domain
-    },
-    error: function() {
-      addMessage("", "long poll error. trying again...", new Date(), "error");
-      transmission_errors += 1;
-			console.log("fail");
-      //don't flood the servers on error, wait 10 seconds before retrying
-      return setTimeout(longPoll, 10 * 1000);
-    },
-    success: function(data) {
-      transmission_errors = 0;
-			console.log("success!");
-      //if everything went well, begin another request immediately
-      //the server will take a long time to respond
-      //how long? well, it will wait until there is another message
-      //and then it will return it to us and close the connection.
-      //since the connection is closed when we get data, we longPoll again
-      return longPoll(data);
-    }
-  });
+	if(CONFIG.id){ // only if a session is present
+		return jQuery.ajax({
+	    cache: false,
+	    type: "GET",
+	    url: "http://chatlet.heroku.com/recv",
+	    dataType: "jsonp",
+	    data: {
+	      since: CONFIG.last_message_time,
+	      id: CONFIG.id,
+				host: document.domain
+	    },
+	    error: function() {
+	      addMessage("", "long poll error. trying again...", new Date(), "error");
+	      transmission_errors += 1;
+				console.log("fail");
+	      //don't flood the servers on error, wait 10 seconds before retrying
+	      return setTimeout(longPoll, 10 * 1000);
+	    },
+	    success: function(data) {
+	      transmission_errors = 0;
+				console.log("success!");
+	      //if everything went well, begin another request immediately
+	      //the server will take a long time to respond
+	      //how long? well, it will wait until there is another message
+	      //and then it will return it to us and close the connection.
+	      //since the connection is closed when we get data, we longPoll again
+	      return longPoll(data);
+	    }
+	  });
+	}
 };
 //submit a new message to the server
 send = function(msg) {
