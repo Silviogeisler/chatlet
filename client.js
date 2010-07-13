@@ -185,7 +185,7 @@ first_poll = true;
 longPoll = function(data) {
   var _a, _b, _c, _d, message, rss;
 	console.log("polling...");
-  if (transmission_errors > 2) {
+  if (transmission_errors > 5) {
     showConnect();
     return null;
   }
@@ -232,11 +232,12 @@ longPoll = function(data) {
 				host: document.domain
 	    },
 	    error: function() {
-	      addMessage("", "Lost connection to server", new Date(), "error");
 	      transmission_errors += 1;
+				timeout_seconds = Math.pow(transmission_errors,2);
+	      addMessage("", "Lost connection to server. Retrying in "+timeout_seconds+" seconds.", new Date(), "error");
 				console.log("fail");
-	      //don't flood the servers on error, wait 10 seconds before retrying
-	      return setTimeout(longPoll, 10 * 1000);
+	      //don't flood the servers on error, wait t_e^2 seconds before retrying
+	      return setTimeout(longPoll, timeout_seconds * 1000);
 	    },
 	    success: function(data) {
 	      transmission_errors = 0;

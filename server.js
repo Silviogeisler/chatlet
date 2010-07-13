@@ -212,9 +212,9 @@ fu.get("/recv", function(req, res) {
   id = qs.parse(url.parse(req.url).query).id;
 	since = parseInt(qs.parse(url.parse(req.url).query).since, 10);
 	host = qs.parse(url.parse(req.url).query).host;
-  if (!channels[host]) {
+	if (!since) {
     res.simpleJSONP(400, {
-      error: "Channel does not exist."
+      error: "Bad time."
     },callback);
     return null;
   }
@@ -222,9 +222,9 @@ fu.get("/recv", function(req, res) {
     session = sessions[id];
     session.poke();
   }
-  if (!since) {
+  if (!channels[host]) {
     res.simpleJSONP(400, {
-      error: "Bad time."
+      error: "Channel does not exist."
     },callback);
     return null;
   }
