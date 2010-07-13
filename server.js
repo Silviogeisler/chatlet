@@ -48,19 +48,15 @@ Channel.prototype.appendMessage = function(nick, type, text) {
   return _a;
 };
 Channel.prototype.query = function(since, callback) {
-	sys.puts("Channel 1");
   var _a, _b, _c, matching, message;
   matching = [];
   _b = this.messages;
-	sys.puts("Channel 2");
   for (_a = 0, _c = _b.length; _a < _c; _a++) {
     message = _b[_a];
-		sys.puts("Channel 3 ("+_a+")");
     if (message.timestamp > since) {
       matching.push(message);
     }
   }
-	sys.puts("Channel 4");
   matching.length !== 0 ? callback(matching) : this.callbacks.push({
     timestamp: new Date(),
     callback: callback
@@ -69,9 +65,7 @@ Channel.prototype.query = function(since, callback) {
       var _d, now;
       now = new Date();
       _d = [];
-			sys.puts("Channel 5");
       while (this.callbacks.length > 0 && now - this.callbacks[0].timestamp > 3 * 1000) {
-				sys.puts("Channel 6");
         _d.push(this.callbacks.shift().callback([]));
       }
       return _d;
@@ -214,7 +208,6 @@ fu.get("/recv", function(req, res) {
   id = qs.parse(url.parse(req.url).query).id;
 	since = parseInt(qs.parse(url.parse(req.url).query).since, 10);
 	host = qs.parse(url.parse(req.url).query).host;
-	sys.puts("/recv 1");
   if (!channels[host]) {
     res.simpleJSONP(400, {
       error: "Channel does not exist."
@@ -225,23 +218,18 @@ fu.get("/recv", function(req, res) {
     session = sessions[id];
     session.poke();
   }
-	sys.puts("/recv 2");
   if (!since) {
     res.simpleJSONP(400, {
       error: "Bad time."
     },callback);
     return null;
   }
-	sys.puts("/recv 3");
   return channels[host].query(since, function(messages) {
-		sys.puts("/recv 4");
     session ? session.poke() : null;
-		sys.puts("/recv 5");
     return res.simpleJSONP(200, {
       messages: messages,
       rss: mem.rss
     },callback);
-		sys.puts("/recv 6");
   });
 	sys.puts("GET done");
 });
