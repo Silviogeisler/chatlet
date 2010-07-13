@@ -21,9 +21,9 @@ qs = require("querystring");
 sessions = {};
 Channel = function() {
 	this.messages = []; // Now each channel has it's own messages
+	this.callbacks = [];
 };
 // Channel.prototype.messages = []; // prototype shares with all instances
-Channel.prototype.callbacks = [];
 Channel.prototype.appendMessage = function(nick, type, text) {
   var _a, m;
   m = {
@@ -74,7 +74,7 @@ Channel.prototype.query = function(since, callback) {
     }, this), 3000);
 };
 
-channels = [];
+channels = {};
 createSession = function(nick,host) {
 	if(!channels[host]) {
 		sys.puts("Creating channel: "+host);
