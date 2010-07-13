@@ -304,7 +304,7 @@ updateTitle = function() {
   }
 };
 playSound = function() {
-	if (CONFIG.unread) {
+	if (CONFIG.unread && CONFIG.sound) {
 		document.getElementById("chatlet_new_message").play();
 	}
 }
@@ -357,7 +357,7 @@ who = function() {
 };
 jQuery(document).ready(function() {
 	TITLE = document.title;
-	jQuery("#chat_gadget_html").html('<div id="chat_gadget_body"><audio id="chatlet_new_message" src="http://dl.dropbox.com/u/1157635/Blow.mp3"></audio><div id="connect"><form action="#"><label for="nick">Name</label><input id="nickInput" class="text"type="text" name="nick" value=""/><input id="connectButton" class="button" type="submit" name="" value="Join"/></form></div><div id="loading"><p>loading</p></div><div id="log"></div><div id="toolbar"><input tabindex="1" type="text" id="entry"/></div>');
+	jQuery("#chat_gadget_html").html('<div id="chat_gadget_body"><audio id="chatlet_new_message" src="http://dl.dropbox.com/u/1157635/Blow.mp3"></audio><div id="connect"><form action="#"><label for="nick">Name</label><input id="nickInput" class="text"type="text" name="nick" value=""/><input id="connectButton" class="button" type="submit" name="" value="Join"/></form></div><div id="loading"><p>loading</p></div><div id="log"></div><div id="toolbar"><input tabindex="1" type="text" id="entry"/><a id="toggle_sound">disable sound</a></div>');
   //submit new messages when the user hits enter if the message isnt blank
   jQuery("#entry").keypress(function(e) {
     var msg;
@@ -369,6 +369,13 @@ jQuery(document).ready(function() {
     return jQuery("#entry").attr("value", "");
   });
   jQuery("#usersLink").click(outputUsers);
+	jQuery("#toggle_sound").click(function(){
+		if(CONFIG.sound){
+			CONFIG.sound = false;
+		}else{
+			CONFIG.sound = true;
+		}
+	});
   //try joining the chat when the user clicks the connect button
   jQuery("#connectButton").click(function() {
     var nick;

@@ -1,10 +1,12 @@
 #chat_gadget_html {
 	background: transparent;
+	position: relative;
 }
 #chat_gadget_html td {
 	padding: 0 3px;
 }
 #chat_gadget_body {
+	position: relative;
 	max-height: 25%;
 	padding: .5em;
 	border: 1px solid rgba(255,255,255,.5);
@@ -33,4 +35,9 @@
   /* enough padding to clear the toolbar.. is there a better way to do this? */
   background: inherit;
   overflow: auto;
+}
+#toggle_sound {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
 }
