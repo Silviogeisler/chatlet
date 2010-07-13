@@ -44,6 +44,15 @@ server = createServer(function(req, res) {
       });
       return res.end(body);
     };
+    res.simpleJSONP = function(code, obj, callback) {
+      var body;
+      body = callback+"("+JSON.stringify(obj)+")";
+      res.writeHead(code, {
+        "Content-Type": "text/json",
+        "Content-Length": body.length
+      });
+      return res.end(body);
+    };
     return handler(req, res);
   }
 });

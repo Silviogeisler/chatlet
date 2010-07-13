@@ -223,7 +223,7 @@ longPoll = function(data) {
     cache: false,
     type: "GET",
     url: "http://chatlet.heroku.com/recv",
-    dataType: "json",
+    dataType: "jsonp",
     data: {
       since: CONFIG.last_message_time,
       id: CONFIG.id
@@ -376,7 +376,7 @@ jQuery(document).ready(function() {
       cache: false,
       type: "GET",
       // XXX should be POST
-      dataType: "json",
+      dataType: "jsonp",
       url: "http://chatlet.heroku.com/join",
       data: {
         nick: nick

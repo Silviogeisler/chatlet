@@ -143,6 +143,8 @@ fu.get('/who', function(req, res) {
 fu.get('/join', function(req, res) {
   var nick, session;
   nick = qs.parse(url.parse(req.url).query).nick;
+  callback = qs.parse(url.parse(req.url).query).callback;
+	sys.puts("nick: "+nick+" callback: "+callback);
   if (nick.length === 0) {
     res.simpleJSON(400, {
       error: "Bad nick."
