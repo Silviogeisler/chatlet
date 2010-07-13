@@ -48,7 +48,7 @@ server = createServer(function(req, res) {
       var body;
       body = callback+"("+JSON.stringify(obj)+")";
       res.writeHead(code, {
-        "Content-Type": "text/json",
+        "Content-Type": "text/javascript",
         "Content-Length": body.length
       });
       return res.end(body);
