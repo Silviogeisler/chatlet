@@ -1,4 +1,5 @@
 var Channel, HOST, MESSAGE_BACKLOG, PORT, SESSION_TIMEOUT, channels, createSession, fu, kill_sessions, mem, qs, sessions, starttime, sys, url;
+var __hasProp = Object.prototype.hasOwnProperty;
 var __slice = Array.prototype.slice, __bind = function(func, obj, args) {
     return function() {
       return func.apply(obj || {}, args ? args.concat(__slice.call(arguments, 0)) : arguments);
