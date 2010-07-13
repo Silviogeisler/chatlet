@@ -128,6 +128,8 @@ setInterval(kill_sessions, 1000);
 fu.listen(PORT, HOST);
 fu.get("/", fu.staticHandler("index.html"));
 fu.get("/chatlet.css", fu.staticHandler("chatlet.css"));
+fu.get("/Blow.mp3", fu.staticHandler("Blow.mp3"));
+fu.get("/Blow.m4a", fu.staticHandler("Blow.m4a"));
 fu.get("/client.js", fu.staticHandler("client.js"));
 fu.get("/load.js", fu.staticHandler("load.js"));
 fu.get("/jquery-1.4.2.min.js", fu.staticHandler("jquery-1.4.2.min.js"));

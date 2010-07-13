@@ -213,6 +213,7 @@ longPoll = function(data) {
     }
     //update the document title to include unread message count if blurred
     updateTitle();
+		playSound();
     //only after the first request for messages do we want to show who is here
     if (first_poll) {
       first_poll = false;
@@ -302,6 +303,11 @@ updateTitle = function() {
     document.title = TITLE;
   }
 };
+playSound = function() {
+	if (CONFIG.unread) {
+		document.getElementById("chatlet_new_message").play();
+	}
+}
 // daemon start time
 starttime = null;
 // daemon memory usage
@@ -351,7 +357,7 @@ who = function() {
 };
 jQuery(document).ready(function() {
 	TITLE = document.title;
-	jQuery("#chat_gadget_html").html('<div id="chat_gadget_body"><div id="connect"><form action="#"><label for="nick">Name</label><input id="nickInput" class="text"type="text" name="nick" value=""/><input id="connectButton" class="button" type="submit" name="" value="Join"/></form></div><div id="loading"><p>loading</p></div><div id="log"></div><div id="toolbar"><input tabindex="1" type="text" id="entry"/></div>');
+	jQuery("#chat_gadget_html").html('<div id="chat_gadget_body"><audio id="chatlet_new_message" src="http://dl.dropbox.com/u/1157635/Blow.mp3"></audio><div id="connect"><form action="#"><label for="nick">Name</label><input id="nickInput" class="text"type="text" name="nick" value=""/><input id="connectButton" class="button" type="submit" name="" value="Join"/></form></div><div id="loading"><p>loading</p></div><div id="log"></div><div id="toolbar"><input tabindex="1" type="text" id="entry"/></div>');
   //submit new messages when the user hits enter if the message isnt blank
   jQuery("#entry").keypress(function(e) {
     var msg;
