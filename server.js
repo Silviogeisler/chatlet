@@ -164,6 +164,7 @@ fu.get('/join', function(req, res) {
     },callback);
     return null;
   }
+	sys.puts(nick+" joins "+host+" with "+channels[host].messages.length+" messages.");
   channels[host].appendMessage(session.nick, "join");
   return res.simpleJSONP(200, {
     id: session.id,
