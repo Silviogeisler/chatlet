@@ -287,13 +287,13 @@ showChat = function(nick) {
 };
 //we want to show a count of unread messages when the window does not have focus
 updateTitle = function() {
-  if (CONFIG.unread) {
-    document.title = "(" + CONFIG.unread.toString() + ") node chat";
-    return document.title;
-  } else {
-    document.title = "node chat";
-    return document.title;
-  }
+  // if (CONFIG.unread) {
+  //   document.title = "(" + CONFIG.unread.toString() + ") node chat";
+  //   return document.title;
+  // } else {
+  //   document.title = "node chat";
+  //   return document.title;
+  // }
 };
 // daemon start time
 starttime = null;

@@ -203,6 +203,12 @@ fu.get("/recv", function(req, res) {
     session = sessions[id];
     session.poke();
   }
+  if (since.length === 0) {
+    res.simpleJSONP(400, {
+      error: "Bad time."
+    },callback);
+    return null;
+  }
   since = parseInt(qs.parse(url.parse(req.url).query).since, 10);
   return channel.query(since, function(messages) {
     session ? session.poke() : null;
