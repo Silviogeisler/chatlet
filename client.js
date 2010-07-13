@@ -85,7 +85,7 @@ userPart = function(nick, timestamp) {
   //put it in the stream
   addMessage(nick, "left", timestamp, "part");
   //remove the user from the list
-  nicks.split(nicks.indexOf(nick), 1);
+  nicks.splice(nicks.indexOf(nick), 1);
   //update the UI
   return updateUsersLink();
 };
