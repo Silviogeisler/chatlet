@@ -48,15 +48,19 @@ Channel.prototype.appendMessage = function(nick, type, text) {
   return _a;
 };
 Channel.prototype.query = function(since, callback) {
+	sys.puts("Channel 1");
   var _a, _b, _c, matching, message;
   matching = [];
   _b = this.messages;
+	sys.puts("Channel 2");
   for (_a = 0, _c = _b.length; _a < _c; _a++) {
     message = _b[_a];
+		sys.puts("Channel 3 ("+_a+")");
     if (message.timestamp > since) {
       matching.push(message);
     }
   }
+	sys.puts("Channel 4");
   matching.length !== 0 ? callback(matching) : this.callbacks.push({
     timestamp: new Date(),
     callback: callback
@@ -65,7 +69,9 @@ Channel.prototype.query = function(since, callback) {
       var _d, now;
       now = new Date();
       _d = [];
+			sys.puts("Channel 5");
       while (this.callbacks.length > 0 && now - this.callbacks[0].timestamp > 30 * 1000) {
+				sys.puts("Channel 6");
         _d.push(this.callbacks.shift().callback([]));
       }
       return _d;
