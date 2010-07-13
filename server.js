@@ -166,21 +166,22 @@ fu.get('/join', function(req, res) {
   },callback);
 });
 fu.get("/send", function(req, res) {
-  var id, session, text;
+  var id, session, text, callback;
+	callback = qs.parse(url.parse(req.url).query).callback;
   id = qs.parse(url.parse(req.url).query).id;
   text = qs.parse(url.parse(req.url).query).text;
   session = sessions[id];
   if (!session || !text) {
-    res.simpleJSON(400, {
+    res.simpleJSONP(400, {
       error: "No such session id"
-    });
+    },callback);
     return null;
   }
   session.poke();
   channel.appendMessage(session.nick, "msg", text);
-  return res.simpleJSON(200, {
+  return res.simpleJSONP(200, {
     rss: mem.rss
-  });
+  },callback);
 });
 fu.get("/part", function(req, res) {
   var id, session;

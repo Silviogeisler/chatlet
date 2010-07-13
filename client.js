@@ -255,7 +255,7 @@ send = function(msg) {
       text: msg
     }, function(data) {
       return true;
-    }, "json");
+    }, "jsonp");
   }
 };
 //Transition the page to the state that prompts the user for a nickname
