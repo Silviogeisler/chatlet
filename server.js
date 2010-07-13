@@ -141,20 +141,20 @@ fu.get('/who', function(req, res) {
   });
 });
 fu.get('/join', function(req, res) {
-  var nick, session;
+  var nick, session, callback;
   nick = qs.parse(url.parse(req.url).query).nick;
   callback = qs.parse(url.parse(req.url).query).callback;
   if (nick.length === 0) {
-    res.simpleJSON(400, {
+    res.simpleJSONP(400, {
       error: "Bad nick."
-    });
+    },callback);
     return null;
   }
   session = createSession(nick);
   if (session === null) {
-    res.simpleJSON(400, {
+    res.simpleJSONP(400, {
       error: "Nick in use."
-    });
+    },callback);
     return null;
   }
   channel.appendMessage(session.nick, "join");
@@ -163,7 +163,7 @@ fu.get('/join', function(req, res) {
     nick: session.nick,
     rss: mem.rss,
     starttime: starttime
-  }, callback);
+  },callback);
 });
 fu.get("/send", function(req, res) {
   var id, session, text;
@@ -194,7 +194,8 @@ fu.get("/part", function(req, res) {
   });
 });
 fu.get("/recv", function(req, res) {
-  var id, session, since;
+  var id, session, since, callback;
+	callback = qs.parse(url.parse(req.url).query).callback;
   id = qs.parse(url.parse(req.url).query).id;
   if (id && sessions[id]) {
     session = sessions[id];
@@ -203,9 +204,9 @@ fu.get("/recv", function(req, res) {
   since = parseInt(qs.parse(url.parse(req.url).query).since, 10);
   return channel.query(since, function(messages) {
     session ? session.poke() : null;
-    return res.simpleJSON(200, {
+    return res.simpleJSONP(200, {
       messages: messages,
       rss: mem.rss
-    });
+    },callback);
   });
 });
