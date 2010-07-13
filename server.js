@@ -19,9 +19,10 @@ sys = require("sys");
 url = require("url");
 qs = require("querystring");
 sessions = {};
-Channel = function() {};
+Channel = function() {
+	this.messages = []; // Now each channel has it's own messages
+};
 // Channel.prototype.messages = []; // prototype shares with all instances
-Channel.messages = []; // Now each channel has it's own messages
 Channel.prototype.callbacks = [];
 Channel.prototype.appendMessage = function(nick, type, text) {
   var _a, m;
