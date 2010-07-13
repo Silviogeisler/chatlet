@@ -93,6 +93,9 @@ autodetectUser = function() {
 	var _a, nick;
 	if ((_a = document.domain) === "forrst.com") {
 	  nick = $("#user-bar li:nth-child(1) a").text();
+		if (/[^\w_\-^!]/.exec(nick)) {
+		  nick = $("#user-bar li:nth-child(3) a").text();
+    }
 	} else if (_a === "github.com") {
 	  nick = $(".name").text();
 	}
