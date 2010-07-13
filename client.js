@@ -227,7 +227,8 @@ longPoll = function(data) {
     dataType: "jsonp",
     data: {
       since: CONFIG.last_message_time,
-      id: CONFIG.id
+      id: CONFIG.id,
+			host: document.domain
     },
     error: function() {
       addMessage("", "long poll error. trying again...", new Date(), "error");
@@ -255,7 +256,8 @@ send = function(msg) {
     // XXX should add to messages immediately
     return jQuery.get("http://chatlet.heroku.com/send", {
       id: CONFIG.id,
-      text: msg
+      text: msg,
+			host: document.domain
     }, function(data) {
       return true;
     }, "jsonp");
@@ -381,7 +383,8 @@ jQuery(document).ready(function() {
       dataType: "jsonp",
       url: "http://chatlet.heroku.com/join",
       data: {
-        nick: nick
+        nick: nick,
+				host: document.domain
       },
       error: function() {
         alert("error connecting to server");
@@ -412,7 +415,8 @@ jQuery(document).ready(function() {
 //if we can, notify the server that we're going away.
 jQuery(window).unload(function() {
   return jQuery.get("http://chatlet.heroku.com/part", {
-    id: CONFIG.id
+    id: CONFIG.id,
+		host: document.domain
   }, function(data) {
     return null;
   }, "jsonp");
