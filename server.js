@@ -81,7 +81,9 @@ Channel.prototype.query = function(since, callback) {
 channels = [];
 createSession = function(nick,host) {
 	if(!channels[host]) {
+		sys.puts("Creating channel: "+host);
 		channels[host] = new Channel();
+		sys.puts(channels[host]);
 	}
   var _a, _b, _c, session;
   if (nick.length > 50) {
