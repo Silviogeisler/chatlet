@@ -215,6 +215,12 @@ fu.get("/recv", function(req, res) {
 	since = parseInt(qs.parse(url.parse(req.url).query).since, 10);
 	host = qs.parse(url.parse(req.url).query).host;
 	sys.puts("/recv 1");
+  if (!channels[host]) {
+    res.simpleJSONP(400, {
+      error: "Channel does not exist."
+    },callback);
+    return null;
+  }
   if (id && sessions[id]) {
     session = sessions[id];
     session.poke();
