@@ -33,7 +33,7 @@ Channel.prototype.appendMessage = function(nick, type, text) {
     timestamp: new Date().getTime()
   };
   if (type === "msg") {
-    sys.puts("<" + nick + "> "+msg);
+    sys.puts("<" + nick + "> "+text);
   } else if (type === "join") {
     sys.puts(nick + " join");
   } else if (type === "part") {
