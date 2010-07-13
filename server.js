@@ -200,22 +200,28 @@ fu.get("/recv", function(req, res) {
 	callback = qs.parse(url.parse(req.url).query).callback;
   id = qs.parse(url.parse(req.url).query).id;
 	since = parseInt(qs.parse(url.parse(req.url).query).since, 10);
+	sys.puts("/recv 1");
   if (id && sessions[id]) {
     session = sessions[id];
     session.poke();
   }
+	sys.puts("/recv 2");
   if (!since) {
     res.simpleJSONP(400, {
       error: "Bad time."
     },callback);
     return null;
   }
+	sys.puts("/recv 3");
   return channel.query(since, function(messages) {
+		sys.puts("/recv 4");
     session ? session.poke() : null;
+		sys.puts("/recv 5");
     return res.simpleJSONP(200, {
       messages: messages,
       rss: mem.rss
     },callback);
+		sys.puts("/recv 6");
   });
 	sys.puts("GET done");
 });
