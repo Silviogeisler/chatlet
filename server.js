@@ -239,7 +239,13 @@ fu.get("/recv", function(req, res) {
   });
 });
 fu.get("/chans", function(req, res) {
-  keys: key for key of channels;
+  keys = (function() {
+	  _a = []; _b = channels;
+	  for (key in _b) { if (__hasProp.call(_b, key)) {
+	    _a.push(key);
+	  }}
+	  return _a;
+	})();
   return res.simpleJSONP(200, {
      keys: keys
    },callback);

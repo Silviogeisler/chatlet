@@ -90,12 +90,18 @@ userPart = function(nick, timestamp) {
   return updateUsersLink();
 };
 autodetectUser = function() {
-	switch document.domain
-		when "forrst.com" then nick = $("#user-bar li:nth-child(1) a").text();
-		when "github.com" then nick = $(".name").text();
-	
-	jQuery("#nickInput").attr("value",nick) if nick;
-	jQuery("#connectButton").click() if nick;
+	var _a, nick;
+	if ((_a = document.domain) === "forrst.com") {
+	  nick = $("#user-bar li:nth-child(1) a").text();
+	} else if (_a === "github.com") {
+	  nick = $(".name").text();
+	}
+	if (nick) {
+	  jQuery("#nickInput").attr("value", nick);
+	}
+	if (nick) {
+	  jQuery("#connectButton").click();
+	}
 }
 // utility functions
 Util = function() {};
