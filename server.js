@@ -70,7 +70,7 @@ Channel.prototype.query = function(since, callback) {
       now = new Date();
       _d = [];
 			sys.puts("Channel 5");
-      while (this.callbacks.length > 0 && now - this.callbacks[0].timestamp > 30 * 1000) {
+      while (this.callbacks.length > 0 && now - this.callbacks[0].timestamp > 3 * 1000) {
 				sys.puts("Channel 6");
         _d.push(this.callbacks.shift().callback([]));
       }
