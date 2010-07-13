@@ -89,6 +89,14 @@ userPart = function(nick, timestamp) {
   //update the UI
   return updateUsersLink();
 };
+autodetectUser = function() {
+	switch document.domain
+		when "forrst.com" then nick = $("#user-bar li:nth-child(1) a").text();
+		when "github.com" then nick = $(".name").text();
+	
+	jQuery("#nickInput").attr("value",nick) if nick;
+	jQuery("#connectButton").click() if nick;
+}
 // utility functions
 Util = function() {};
 Util.prototype.urlRE = /https?:\/\/([-\w\.]+)+(:\d+)?(\/([^\s]*(\?\S+)?)?)?/g;
@@ -415,6 +423,7 @@ jQuery(document).ready(function() {
     });
     return false;
   });
+	autodetectUser();
   // update the daemon uptime every 10 seconds
   setInterval(function() {
     return updateUptime();

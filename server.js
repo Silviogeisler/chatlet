@@ -238,10 +238,9 @@ fu.get("/recv", function(req, res) {
     },callback);
   });
 });
-// fu.get("/chans", function(req, res) {
-//   channels
-//   return res.simpleJSONP(200, {
-//      messages: messages,
-//      rss: mem.rss
-//    },callback);
-// });
+fu.get("/chans", function(req, res) {
+  keys: key for key of channels;
+  return res.simpleJSONP(200, {
+     keys: keys
+   },callback);
+});
