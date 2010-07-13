@@ -184,6 +184,7 @@ first_poll = true;
 // function's execution.
 longPoll = function(data) {
   var _a, _b, _c, _d, message, rss;
+	console.log("polling...");
   if (transmission_errors > 2) {
     showConnect();
     return null;
@@ -231,11 +232,13 @@ longPoll = function(data) {
     error: function() {
       addMessage("", "long poll error. trying again...", new Date(), "error");
       transmission_errors += 1;
+			console.log("fail");
       //don't flood the servers on error, wait 10 seconds before retrying
       return setTimeout(longPoll, 10 * 1000);
     },
     success: function(data) {
       transmission_errors = 0;
+			console.log("success!");
       //if everything went well, begin another request immediately
       //the server will take a long time to respond
       //how long? well, it will wait until there is another message
