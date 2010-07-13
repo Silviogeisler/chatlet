@@ -199,6 +199,7 @@ fu.get("/recv", function(req, res) {
   var id, session, since, callback;
 	callback = qs.parse(url.parse(req.url).query).callback;
   id = qs.parse(url.parse(req.url).query).id;
+	since = parseInt(qs.parse(url.parse(req.url).query).since, 10);
   if (id && sessions[id]) {
     session = sessions[id];
     session.poke();
@@ -209,7 +210,6 @@ fu.get("/recv", function(req, res) {
     },callback);
     return null;
   }
-  since = parseInt(qs.parse(url.parse(req.url).query).since, 10);
   return channel.query(since, function(messages) {
     session ? session.poke() : null;
     return res.simpleJSONP(200, {
