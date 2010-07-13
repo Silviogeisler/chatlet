@@ -217,4 +217,5 @@ fu.get("/recv", function(req, res) {
       rss: mem.rss
     },callback);
   });
+	sys.puts("GET done");
 });
