@@ -232,7 +232,7 @@ longPoll = function(data) {
 				host: document.domain
 	    },
 	    error: function() {
-	      addMessage("", "long poll error. trying again...", new Date(), "error");
+	      addMessage("", "Lost connection to server", new Date(), "error");
 	      transmission_errors += 1;
 				console.log("fail");
 	      //don't flood the servers on error, wait 10 seconds before retrying
