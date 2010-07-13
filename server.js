@@ -203,7 +203,7 @@ fu.get("/recv", function(req, res) {
     session = sessions[id];
     session.poke();
   }
-  if (since.length === 0) {
+  if (!since) {
     res.simpleJSONP(400, {
       error: "Bad time."
     },callback);
