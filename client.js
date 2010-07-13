@@ -1,4 +1,4 @@
-var CONFIG, Util, addMessage, first_poll, longPoll, nicks, onConnect, outputUsers, rss, scrollDown, send, showChat, showConnect, showLoad, starttime, transmission_errors, updateRSS, updateTitle, updateUptime, updateUsersLink, userJoin, userPart, util, who;
+var CONFIG, Util, addMessage, first_poll, longPoll, nicks, onConnect, outputUsers, rss, scrollDown, send, showChat, showConnect, showLoad, starttime, transmission_errors, updateRSS, updateTitle, updateUptime, updateUsersLink, userJoin, userPart, util, who, TITLE;
 var __hasProp = Object.prototype.hasOwnProperty;
 CONFIG = {
   debug: false,
@@ -287,13 +287,12 @@ showChat = function(nick) {
 };
 //we want to show a count of unread messages when the window does not have focus
 updateTitle = function() {
-  // if (CONFIG.unread) {
-  //   document.title = "(" + CONFIG.unread.toString() + ") node chat";
-  //   return document.title;
-  // } else {
-  //   document.title = "node chat";
-  //   return document.title;
-  // }
+  if (CONFIG.unread) {
+    document.title = "(" + CONFIG.unread.toString() + ") "+TITLE;
+    return document.title;
+  } else {
+    document.title = TITLE;
+  }
 };
 // daemon start time
 starttime = null;
@@ -343,6 +342,7 @@ who = function() {
   }, "jsonp");
 };
 jQuery(document).ready(function() {
+	TITLE = document.title;
 	jQuery("#chat_gadget_html").html('<div id="chat_gadget_body"><div id="connect"><form action="#"><label for="nick">Name</label><input id="nickInput" class="text"type="text" name="nick" value=""/><input id="connectButton" class="button" type="submit" name="" value="Join"/></form></div><div id="loading"><p>loading</p></div><div id="log"></div><div id="toolbar"><input tabindex="1" type="text" id="entry"/></div>');
   //submit new messages when the user hits enter if the message isnt blank
   jQuery("#entry").keypress(function(e) {
