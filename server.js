@@ -144,7 +144,6 @@ fu.get('/join', function(req, res) {
   var nick, session;
   nick = qs.parse(url.parse(req.url).query).nick;
   callback = qs.parse(url.parse(req.url).query).callback;
-	sys.puts("nick: "+nick+" callback: "+callback);
   if (nick.length === 0) {
     res.simpleJSON(400, {
       error: "Bad nick."
@@ -159,12 +158,12 @@ fu.get('/join', function(req, res) {
     return null;
   }
   channel.appendMessage(session.nick, "join");
-  return res.simpleJSON(200, {
+  return res.simpleJSONP(200, {
     id: session.id,
     nick: session.nick,
     rss: mem.rss,
     starttime: starttime
-  });
+  }, callback);
 });
 fu.get("/send", function(req, res) {
   var id, session, text;
