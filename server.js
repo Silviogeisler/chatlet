@@ -33,7 +33,7 @@ Channel.prototype.appendMessage = function(nick, type, text) {
     timestamp: new Date().getTime()
   };
   if (type === "msg") {
-    sys.puts("<" + nick + ">");
+    sys.puts("<" + nick + "> "+msg);
   } else if (type === "join") {
     sys.puts(nick + " join");
   } else if (type === "part") {
@@ -237,5 +237,11 @@ fu.get("/recv", function(req, res) {
       rss: mem.rss
     },callback);
   });
-	sys.puts("GET done");
 });
+// fu.get("/chans", function(req, res) {
+//   channels
+//   return res.simpleJSONP(200, {
+//      messages: messages,
+//      rss: mem.rss
+//    },callback);
+// });

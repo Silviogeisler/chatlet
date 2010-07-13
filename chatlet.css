@@ -1,6 +1,7 @@
 #chat_gadget_html {
 	background: transparent;
 	position: relative;
+	z-index: 100000;
 }
 #chat_gadget_html td {
 	padding: 0 3px;
@@ -14,6 +15,8 @@
 	-moz-border-radius: 1em;
 	border-radius: 1em;
 	background: #EDE9DC;
+	background: rgba(193, 192, 166, 0.9);
+	-webkit-box-shadow: rgba(0, 0, 0, 0.296875) 0px 0px 4px;
 }
 #entry {
   width: 80%;
@@ -33,7 +36,7 @@
 	max-height: 250px;
   display: block;
   /* enough padding to clear the toolbar.. is there a better way to do this? */
-  background: inherit;
+/*  background: inherit;*/
   overflow: auto;
 }
 #toggle_sound {
