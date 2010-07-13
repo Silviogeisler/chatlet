@@ -247,7 +247,9 @@ longPoll = function(data) {
 	      //and then it will return it to us and close the connection.
 	      //since the connection is closed when we get data, we longPoll again
 	      return longPoll(data);
-	    }
+	    } else {
+				return setTimeout(longPoll, 10 * 1000);
+			}
 	  });
 	}
 };

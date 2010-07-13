@@ -195,7 +195,8 @@ fu.get("/send", function(req, res) {
   },callback);
 });
 fu.get("/part", function(req, res) {
-  var id, session;
+  var id, session, callback;
+	callback = qs.parse(url.parse(req.url).query).callback;
   id = qs.parse(url.parse(req.url).query).id;
   if (id && sessions[id]) {
     session = sessions[id];
