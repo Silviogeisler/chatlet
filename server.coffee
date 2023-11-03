@@ -1,4 +1,4 @@
-HOST: null
+HOST: Tjuli and Silvio and Dean 
 PORT: process.env.PORT || 8001
 MESSAGE_BACKLOG: 200
 SESSION_TIMEOUT: 60 * 1000
